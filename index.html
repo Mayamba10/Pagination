@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Burger Bonanza 🍔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem 1rem 1rem;
+            background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            animation: headerFadeIn 1s;
+        }
+
+        @keyframes headerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            letter-spacing: 2px;
+            color: #a0522d;
+            text-shadow: 1px 2px 0 #fff6e0;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7a4f1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .burger-info {
+            max-width: 900px;
+            margin: 2rem auto 0 auto;
+            padding: 1.5rem;
+            background: rgba(255, 246, 224, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(160, 82, 45, 0.08);
+        }
+
+        .burger-info h2 {
+            color: #a0522d;
+            margin-top: 0;
+        }
+
+        .burger-info p {
+            font-size: 1.08rem;
+            color: #7a4f1d;
+            margin-bottom: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .burger-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .burger-card {
+            background: linear-gradient(120deg, #fff6e0 60%, #ffe5b4 100%);
+            border-radius: 24px;
+            box-shadow: 0 6px 24px rgba(160, 82, 45, 0.12);
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            animation: cardPop 0.7s;
+        }
+
+        @keyframes cardPop {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .burger-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(160, 82, 45, 0.18);
+        }
+
+        .burger-img {
+            width: 100%;
+            max-width: 220px;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(160, 82, 45, 0.10);
+            display: block;
+            margin: 0 auto 1rem auto;
+            background: #fff;
+        }
+
+        .burger-title {
+            font-size: 1.5rem;
+            color: #a0522d;
+            margin: 0.5rem 0 0.2rem 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .burger-desc {
+            font-size: 1rem;
+            color: #7a4f1d;
+            margin-bottom: 0.7rem;
+            text-align: center;
+        }
+
+        .burger-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            background: #ffb347;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 1px 4px rgba(255, 179, 71, 0.15);
+            letter-spacing: 1px;
+        }
+
+        .burger-price {
+            font-size: 1.1rem;
+            color: #d2691e;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pagination-btn {
+            background: #ffb347;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(255, 179, 71, 0.10);
+        }
+
+        .pagination-btn:disabled {
+            background: #ffe5b4;
+            color: #a0522d;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .pagination-num {
+            font-size: 1.1rem;
+            color: #a0522d;
+            font-weight: bold;
+            margin: 0 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+            color: #7a4f1d;
+            font-size: 1rem;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .burger-list {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            header,
+            footer {
+                border-radius: 0;
+            }
+
+            .burger-info {
+                border-radius: 0;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Burger Bonanza 🍔</h1>
+        <div class="subtitle">All About Burgers: Styles, Flavors, and Fun Facts!</div>
+    </header>
+    <main>
+        <section class="burger-info" id="burger-info"></section>
+        <section id="burger-list" class="burger-list"></section>
+        <nav class="pagination" id="pagination"></nav>
+    </main>
+    <footer>
+        &copy; 2025 Burger Bonanza. Made with <span style="color:#d2691e;">&#10084;</span> for burger lovers.
+    </footer>
+    <script>
+        // Info for each page
+        const burgerInfos = [
+            `<h2>History of Burgers</h2>
+      <p>The hamburger originated in the late 1800s, inspired by German Hamburg steak. It became popular in America after being showcased at the 1904 St. Louis World’s Fair. Over time, burgers evolved from simple beef patties to a global culinary icon, with fast food chains and gourmet restaurants offering endless variations.</p>
+      <p>Early burgers were served between two slices of bread, but the modern bun was introduced in the early 20th century. Today, burgers are enjoyed worldwide, with each culture adding its own twist.</p>`,
+            `<h2>Types of Burgers</h2>
+      <p>Burgers come in many forms. The classic beef burger is joined by chicken, fish, pork, lamb, and plant-based patties. Regional specialties include the American cheeseburger, Japanese teriyaki burger, and Indian aloo tikki burger.</p>
+      <p>Fusion burgers combine global flavors, such as kimchi burgers from Korea or falafel burgers from the Middle East. Each type offers unique textures and tastes, making burgers a versatile meal for all preferences.</p>`,
+            `<h2>Burger Flavors & Composition</h2>
+      <p>A burger’s flavor depends on its patty, cheese, sauces, vegetables, and toppings. Beef patties are often seasoned with salt, pepper, and garlic. Chicken burgers may feature spicy marinades, while fish burgers use tartar sauce and lemon.</p>
+      <p>Popular cheeses include cheddar, Swiss, and blue cheese. Toppings range from lettuce and tomato to avocado, jalapeños, and caramelized onions. Buns can be brioche, pretzel, or gluten-free, adding another layer of flavor.</p>`,
+            `<h2>Fun Burger Facts</h2>
+      <p>The world’s largest burger weighed over a ton! National Burger Day is celebrated in many countries, and some gourmet burgers feature luxury ingredients like truffle oil or gold leaf.</p>
+      <p>Iconic burgers include the Big Mac, Whopper, and In-N-Out Double-Double. Burgers are often paired with fries, onion rings, or milkshakes, making them a staple of comfort food culture.</p>`
+        ];
+
+        const burgers = [
+            {
+                name: "Classic Cheeseburger",
+                desc: "Juicy beef patty, cheddar cheese, lettuce, tomato, onion, and pickles on a toasted bun.",
+                img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80",
+                tags: ["Beef", "Cheese", "Classic"],
+                price: "$7.99"
+            },
+            {
+                name: "Bacon BBQ Burger",
+                desc: "Smoky bacon, BBQ sauce, crispy onions, and cheddar on a beef patty.",
+                img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+                tags: ["Bacon", "BBQ", "Beef"],
+                price: "$8.99"
+            },
+            {
+                name: "Veggie Delight Burger",
+                desc: "Grilled veggie patty, avocado, sprouts, tomato, and vegan mayo.",
+                img: "https://images.unsplash.com/photo-1464306076886-debede6a8765?auto=format&fit=crop&w=400&q=80",
+                tags: ["Vegetarian", "Healthy", "Avocado"],
+                price: "$7.49"
+            },
+            {
+                name: "Spicy Jalapeño Burger",
+                desc: "Beef patty, pepper jack cheese, jalapeños, chipotle mayo, and lettuce.",
+                img: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80",
+                tags: ["Spicy", "Jalapeño", "Beef"],
+                price: "$8.49"
+            },
+            {
+                name: "Mushroom Swiss Burger",
+                desc: "Sautéed mushrooms, Swiss cheese, caramelized onions, and garlic aioli.",
+                img: "https://images.unsplash.com/photo-1505250469679-203ad9ced0cb?auto=format&fit=crop&w=400&q=80",
+                tags: ["Mushroom", "Swiss", "Beef"],
+                price: "$8.29"
+            },
+            {
+                name: "Chicken Ranch Burger",
+                desc: "Grilled chicken breast, ranch sauce, lettuce, tomato, and crispy bacon.",
+                img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80",
+                tags: ["Chicken", "Ranch", "Bacon"],
+                price: "$7.99"
+            },
+            {
+                name: "Fish Fillet Burger",
+                desc: "Crispy fish fillet, tartar sauce, lettuce, and pickles on a soft bun.",
+                img: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=400&q=80",
+                tags: ["Fish", "Seafood", "Crispy"],
+                price: "$8.49"
+            },
+            {
+                name: "Double Stack Burger",
+                desc: "Two beef patties, American cheese, lettuce, tomato, and secret sauce.",
+                img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+                tags: ["Double", "Beef", "Cheese"],
+                price: "$9.49"
+            },
+            {
+                name: "Pulled Pork Burger",
+                desc: "Slow-cooked pulled pork, coleslaw, BBQ sauce, and pickles.",
+                img: "https://images.unsplash.com/photo-1523987355523-c7b5b0723c6e?auto=format&fit=crop&w=400&q=80",
+                tags: ["Pork", "BBQ", "Coleslaw"],
+                price: "$8.99"
+            },
+            {
+                name: "Falafel Burger",
+                desc: "Crispy falafel patty, hummus, cucumber, tomato, and tahini sauce.",
+                img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80",
+                tags: ["Vegetarian", "Falafel", "Middle Eastern"],
+                price: "$7.99"
+            }
+        ];
+
+        const burgersPerPage = 2;
+        let currentPage = 1;
+        const totalPages = Math.ceil(burgers.length / burgersPerPage);
+
+        function renderInfo() {
+            const info = document.getElementById('burger-info');
+            // Show different info for each page, loop if more pages than info
+            info.innerHTML = burgerInfos[(currentPage - 1) % burgerInfos.length];
+        }
+
+        function renderBurgers() {
+            const start = (currentPage - 1) * burgersPerPage;
+            const end = start + burgersPerPage;
+            const burgerList = document.getElementById('burger-list');
+            burgerList.innerHTML = burgers.slice(start, end).map(burger => `
+        <div class="burger-card">
+          <img src="${burger.img}" alt="${burger.name}" class="burger-img" />
+          <div class="burger-title">${burger.name}</div>
+          <div class="burger-desc">${burger.desc}</div>
+          <div class="burger-tags">
+            ${burger.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+          <div class="burger-price">${burger.price}</div>
+        </div>
+      `).join('');
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = `
+        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(-1)">&#8592; Prev</button>
+        <span class="pagination-num">Page ${currentPage} of ${totalPages}</span>
+        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(1)">Next &#8594;</button>
+      `;
+        }
+
+        window.changePage = function (delta) {
+            currentPage += delta;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            renderInfo();
+            renderBurgers();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        renderInfo();
+        renderBurgers();
+        renderPagination();
+    </script>
+</body>
+
+</html>
